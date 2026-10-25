@@ -12,12 +12,8 @@ class constructDense: #Dense as in fully connected
         self.X = X #Save for backprop
         return X @ self.W + self.b
 
-    def backward(self, dZ, learningRate = 0):
+    def backward(self, dZ):
         self.dW = self.X.T @ dZ  #Derivative of the loss with respect to W
         self.db = np.sum(dZ, axis=0, keepdims=True) #Derivative
         dX = dZ @ self.W.T #Derivative of the loss with respect to X (before W is updated)
-
-        if learningRate > 0:
-            self.W -= learningRate * self.dW
-            self.b -= learningRate * self.db
         return dX
